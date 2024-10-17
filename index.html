@@ -1,0 +1,512 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login / Registrasi Futuristik</title>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Roboto:wght@300;400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-color: #000000;
+            color: #FFFFFF;
+            min-height: 100vh;
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            perspective: 1000px;
+        }
+
+        .background {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, #000000, #1a1a1a);
+            z-index: -1;
+        }
+
+        .grid {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                linear-gradient(to right, rgba(255, 0, 0, 0.1) 1px, transparent 1px),
+                linear-gradient(to bottom, rgba(255, 0, 0, 0.1) 1px, transparent 1px);
+            background-size: 50px 50px;
+            z-index: -1;
+            animation: gridMove 20s linear infinite;
+            transform: rotateX(60deg) scale(2);
+            opacity: 0.5;
+        }
+
+        @keyframes gridMove {
+            0% { transform: rotateX(60deg) scale(2) translateY(0); }
+            100% { transform: rotateX(60deg) scale(2) translateY(50px); }
+        }
+
+        .container {
+            background-color: rgba(46, 46, 46, 0.8);
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 0 30px rgba(255, 0, 0, 0.3);
+            width: 400px;
+            backdrop-filter: blur(10px);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+            transform-style: preserve-3d;
+        }
+
+        .container::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,0,0,0.1) 0%, transparent 70%);
+            transform: rotate(45deg);
+            z-index: -1;
+        }
+
+        .container:hover {
+            transform: translateY(-5px) scale(1.02) rotateY(5deg);
+            box-shadow: 0 10px 40px rgba(255, 0, 0, 0.4);
+        }
+
+        h2 {
+            font-family: 'Orbitron', sans-serif;
+            text-align: center;
+            margin-bottom: 30px;
+            color: #FF0000;
+            font-weight: 700;
+            font-size: 28px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            position: relative;
+            text-shadow: 0 0 10px rgba(255, 0, 0, 0.5);
+        }
+
+        h2::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 50px;
+            height: 2px;
+            background-color: #FF0000;
+            box-shadow: 0 0 10px #FF0000;
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .input-group {
+            margin-bottom: 20px;
+            position: relative;
+        }
+
+        input {
+            width: 100%;
+            padding: 12px 15px 12px 40px;
+            border: none;
+            border-radius: 25px;
+            background-color: rgba(169, 169, 169, 0.2);
+            color: #FFFFFF;
+            font-size: 16px;
+            transition: all 0.3s ease;
+        }
+
+        input:focus {
+            outline: none;
+            background-color: rgba(169, 169, 169, 0.3);
+            box-shadow: 0 0 15px rgba(255, 0, 0, 0.5);
+        }
+
+        input::placeholder {
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        .input-icon {
+            position: absolute;
+            top: 50%;
+            left: 15px;
+            transform: translateY(-50%);
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 18px;
+        }
+
+        button {
+            padding: 12px;
+            border: none;
+            border-radius: 25px;
+            background-color: #FF0000;
+            color: #FFFFFF;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(120deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+            transition: all 0.5s;
+        }
+
+        button:hover::before {
+            left: 100%;
+        }
+
+        button:hover {
+            background-color: #8B0000;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(255, 0, 0, 0.4);
+        }
+
+        .switch-form {
+            text-align: center;
+            margin-top: 20px;
+            font-size: 14px;
+        }
+
+        .switch-form a {
+            color: #FFCC00;
+            text-decoration: none;
+            font-weight: 600;
+            transition: color 0.3s ease;
+            position: relative;
+        }
+
+        .switch-form a::after {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 2px;
+            bottom: -2px;
+            left: 0;
+            background-color: #FFCC00;
+            transform: scaleX(0);
+            transition: transform 0.3s ease;
+        }
+
+        .switch-form a:hover::after {
+            transform: scaleX(1);
+        }
+
+        .switch-form a:hover {
+            color: #FFA500;
+        }
+
+        .neon-border {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            right: 20px;
+            bottom: 20px;
+            border: 2px solid #FF0000;
+            border-radius: 10px;
+            box-shadow: 0 0 20px #FF0000, inset 0 0 20px #FF0000;
+            opacity: 0.5;
+            z-index: 0;
+            animation: neonPulse 2s infinite alternate;
+        }
+
+        @keyframes neonPulse {
+            from { opacity: 0.5; }
+            to { opacity: 0.8; }
+        }
+
+        .particle {
+            position: absolute;
+            width: 5px;
+            height: 5px;
+            background-color: #FF0000;
+            border-radius: 50%;
+            animation: particleFloat 10s infinite linear;
+        }
+
+        @keyframes particleFloat {
+            0% { transform: translate(0, 0) rotate(0deg); opacity: 0; }
+            50% { opacity: 1; }
+            100% { transform: translate(100px, -100px) rotate(360deg); opacity: 0; }
+        }
+
+        .hologram {
+            position: absolute;
+            top: -50px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(0,255,255,0.2) 0%, transparent 70%);
+            animation: hologramFloat 4s ease-in-out infinite;
+        }
+
+        @keyframes hologramFloat {
+            0%, 100% { transform: translateX(-50%) translateY(0); }
+            50% { transform: translateX(-50%) translateY(-20px); }
+        }
+
+        .scanner {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background-color: rgba(0, 255, 255, 0.5);
+            animation: scan 2s linear infinite;
+        }
+
+        @keyframes scan {
+            0% { top: 0; }
+            100% { top: 100%; }
+        }
+
+        #registerForm {
+            display: none;
+        }
+
+        .form-switch {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.5s ease;
+        }
+
+        .form-switch.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
+</head>
+<body>
+    <div class="background"></div>
+    <div class="grid"></div>
+    <div class="neon-border"></div>
+
+    <div class="container">
+        <div class="hologram"></div>
+        <div class="scanner"></div>
+        <h2 id="formTitle">Login</h2>
+        <form id="loginForm" class="form-switch active">
+            <div class="input-group">
+                <i class="fas fa-user input-icon"></i>
+                <input type="text" id="username" placeholder="Username" required>
+            </div>
+            <div class="input-group">
+                <i class="fas fa-lock input-icon"></i>
+                <input type="password" id="password" placeholder="Password" required>
+            </div>
+            <button type="submit">Login</button>
+        </form>
+        <form id="registerForm" class="form-switch">
+            <div class="input-group">
+                <i class="fas fa-user input-icon"></i>
+                <input type="text" id="regUsername" placeholder="Username" required>
+            </div>
+            <div class="input-group">
+                <i class="fas fa-user input-icon"></i>
+                <input type="text" id="firstName" placeholder="Nama Depan" required>
+            </div>
+            <div class="input-group">
+                <i class="fas fa-user input-icon"></i>
+                <input type="text" id="lastName" placeholder="Nama Belakang" required>
+            </div>
+            <div class="input-group">
+                <i class="fas fa-envelope input-icon"></i>
+                <input type="email" id="email" placeholder="Email" required>
+            </div>
+            <div class="input-group">
+                <i class="fab fa-whatsapp input-icon"></i>
+                <input type="tel" id="whatsapp" placeholder="Nomor WhatsApp" required>
+            </div>
+            <div class="input-group">
+                <i class="fas fa-lock input-icon"></i>
+                <input type="password" id="regPassword" placeholder="Password" required>
+            </div>
+            <button type="submit">Daftar</button>
+        </form>
+        <div class="switch-form">
+            <p id="switchText">Belum punya akun? <a href="#" id="switchLink">Daftar di sini</a></p>
+        </div>
+    </div>
+
+    <script>
+        const loginForm = document.getElementById('loginForm');
+        const registerForm = document.getElementById('registerForm');
+        const formTitle = document.getElementById('formTitle');
+        const switchLink = document.getElementById('switchLink');
+        const switchText = document.getElementById('switchText');
+        let isLoginForm = true;
+
+        // Membuat partikel
+        for (let i = 0; i < 30; i++) {
+            const particle = document.createElement('div');
+            particle.classList.add('particle');
+            particle.style.left = Math.random() * 100 + 'vw';
+            particle.style.top = Math.random() * 100 + 'vh';
+            particle.style.animationDelay = Math.random() * 10 + 's';
+            document.body.appendChild(particle);
+        }
+
+        // Efek 3D pada container
+        document.addEventListener('mousemove', (e) => {
+            const container = document.querySelector('.container');
+            const xAxis = (window.innerWidth / 2 - e.pageX) / 25;
+            const yAxis = (window.innerHeight / 2 - e.pageY) / 25;
+            container.style.transform = `rotateY(${xAxis}deg) rotateX(${yAxis}deg)`;
+        });
+
+        switchLink.addEventListener('click', function(e) {
+            e.preventDefault();
+            isLoginForm = !isLoginForm;
+            if (isLoginForm) {
+                formTitle.textContent = 'Login';
+                loginForm.classList.add('active');
+                registerForm.classList.remove('active');
+                loginForm.style.display = 'flex';
+                registerForm.style.display = 'none';
+                switchText.innerHTML = 'Belum punya akun? <a href="#" id="switchLink">Daftar di sini</a>';
+            } else {
+                formTitle.textContent = 'Registrasi';
+                loginForm.classList.remove('active');
+                registerForm.classList.add('active');
+                loginForm.style.display = 'none';
+                registerForm.style.display = 'flex';
+                switchText.innerHTML = 'Sudah punya akun? <a href="#" id="switchLink">Login di sini</a>';
+            }
+            document.getElementById('switchLink').addEventListener('click', arguments.callee);
+        });
+
+        loginForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+            console.log('Login dengan:', username, password);
+            alert('Login berhasil!');
+        });
+
+        registerForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            const username = document.getElementById('regUsername').value;
+            const firstName = document.getElementById('firstName').value;
+            const lastName = document.getElementById('lastName').value;
+            const email = document.getElementById('email').value;
+            const whatsapp = document.getElementById('whatsapp').value;
+            const password = document.getElementById('regPassword').value;
+            console.log('Registrasi dengan:', { username, firstName, lastName, email, whatsapp, password });
+            alert('Registrasi berhasil!');
+        });
+
+        // Fungsi untuk menambahkan efek ripple pada tombol
+        function addRippleEffect(button) {
+            button.addEventListener('click', function(e) {
+                let ripple = document.createElement('span');
+                ripple.classList.add('ripple');
+                this.appendChild(ripple);
+                let x = e.clientX - e.target.offsetLeft;
+                let y = e.clientY - e.target.offsetTop;
+                ripple.style.left = `${x}px`;
+                ripple.style.top = `${y}px`;
+                setTimeout(() => {
+                    ripple.remove();
+                }, 300);
+            });
+        }
+
+        // Menambahkan efek ripple pada semua tombol
+        document.querySelectorAll('button').forEach(addRippleEffect);
+
+        // Animasi input fields saat focus
+        document.querySelectorAll('input').forEach(input => {
+            input.addEventListener('focus', function() {
+                this.parentNode.classList.add('input-focus');
+            });
+            input.addEventListener('blur', function() {
+                if (this.value === '') {
+                    this.parentNode.classList.remove('input-focus');
+                }
+            });
+        });
+
+        // Validasi form
+        function validateForm(form) {
+            let isValid = true;
+            form.querySelectorAll('input').forEach(input => {
+                if (input.value.trim() === '') {
+                    isValid = false;
+                    showError(input, 'Field ini harus diisi');
+                } else {
+                    clearError(input);
+                }
+            });
+            return isValid;
+        }
+
+        function showError(input, message) {
+            let errorElement = input.parentNode.querySelector('.error-message');
+            if (!errorElement) {
+                errorElement = document.createElement('div');
+                errorElement.className = 'error-message';
+                input.parentNode.appendChild(errorElement);
+            }
+            errorElement.textContent = message;
+            input.classList.add('input-error');
+        }
+
+        function clearError(input) {
+            const errorElement = input.parentNode.querySelector('.error-message');
+            if (errorElement) {
+                errorElement.remove();
+            }
+            input.classList.remove('input-error');
+        }
+
+        // Event listener untuk validasi form login
+        loginForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            if (validateForm(this)) {
+                // Proses login
+                console.log('Login berhasil');
+                alert('Login berhasil!');
+            }
+        });
+
+        // Event listener untuk validasi form registrasi
+        registerForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            if (validateForm(this)) {
+                // Proses registrasi
+                console.log('Registrasi berhasil');
+                alert('Registrasi berhasil!');
+            }
+        });
+    </script>
+</body>
+</html>
